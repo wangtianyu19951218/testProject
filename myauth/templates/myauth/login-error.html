@@ -1,0 +1,22 @@
+{% extends 'myauth/index.html' %}
+
+{% block content %}
+
+<div>
+    <h1>以下是错误信息</h1>
+    {% if user.is_authenticated  %}
+        <p>{{ errortype }}</p>
+        <button class="btn btn-danger"><a href="/logout/">退出</a></button>
+
+
+    {% else %}
+        <p>{{ errortype }}</p>
+        <button type="submit"><a href="{% url 'login' %}">管理员登录</a></button>
+        <button type="submit"><a href="/owner_login/"">船主登录</a></button>
+        <button type="submit"><a href="/register/">注册</a></button>
+
+    {% endif %}
+
+</div>
+
+{% endblock %}

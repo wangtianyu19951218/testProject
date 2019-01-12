@@ -1,0 +1,51 @@
+{% extends 'myauth/index.html' %}
+
+{% block content %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'assets/bootstrap/css/bootstrap.min.css' %}" type="text/css" media="all">
+<link rel="stylesheet" href="{% static 'assets/css/style.css' %}" type="text/css" media="all">
+<body>
+    <style>
+        a{
+            text-decoration: none;
+            color: #ffffff;
+        }
+         a:hover{
+             color: #ffffff;
+         }
+ </style>
+    <h1>请根据权限登录</h1>
+{#    {% if user.is_authenticated  %}#}
+{#        <h3>登录成功！</h3>#}
+{#        <button type="submit"><a href="/logout/">退出</a></button>#}
+{#        {% if right %}#}
+{#            <h1>欢迎您，管理员</h1>#}
+{#            <button type="submit"><a href="/search/">信息查询</a></button>#}
+{#            <button type="submit"><a href="/register/">信息录入</a></button>#}
+{#            <button type="submit"><a href="/sendmessage/">信息发送</a></button>#}
+{#            {% else %}#}
+{#                <h1>欢迎您，船主</h1>#}
+{#                <button type="submit"><a href="/search/">信息查询</a></button>#}
+{#                <button type="submit"><a href="/showall/">信息显示</a></button>#}
+{#        {% endif %}#}
+
+
+
+
+{#    {% else %}#}
+        <p>{{ errortype }}</p>
+
+        <div>
+            <button type="submit" class="btn btn-danger btn-lg"><a href="{% url 'login' %}">管理员登录</a></button>
+            <button type="submit" class="btn btn-danger btn btn-primary btn-lg"><a href="/owner_login/">船主登录</a></button>
+            <button type="submit" class="btn btn-danger"><a href="/register/">注册</a></button>
+
+        </div>
+
+
+
+{#    {% endif %}#}
+
+</body>
+
+{% endblock %}

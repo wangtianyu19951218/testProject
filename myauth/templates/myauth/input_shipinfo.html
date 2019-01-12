@@ -1,0 +1,140 @@
+
+{% extends 'myauth/index.html' %}
+
+{% block content %}
+
+<!--
+<link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+-->
+
+
+<!--
+<form method="post" action="">
+{%csrf_token%}
+    <div class="btn-group" style="margin: 300px">
+    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" >
+        <span class="buttonText">默认</span>
+        <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" role="menu">
+        <li ><a href="#" onclick="shows($(this).text())" name="a">功能</a></li>
+        <li value="aaa111"><a href="#" onclick="shows($(this).text())">另一个功能</a></li>
+        <li><a href="#" onclick="shows($(this).text())">其他</a></li>
+        <li><a href="#" onclick="shows($(this).text())">分离的链接</a></li>
+    </ul>
+</div>
+
+
+</form>
+-->
+
+<!--
+<form action="{% url 'input_shipinfo' %}">
+    {% csrf_token %}
+    <select name="test">
+        <option>下拉</option>
+        <option value="男">男</option>
+        <option value="女">女</option>
+        <input type="submit" value="提交">
+    </select>
+</form>
+-->
+
+<form method="post" action="">
+{%csrf_token%}
+<p>船号:<input type="text" name="shipid"
+onchange="if(/\D/.test(this.value)){alert('船号必须是数字');this.value='';}"
+></p>
+
+<p>经度:<input type="text" name="jindu"
+onchange="if(/\D/.test(this.value)){alert('经度必须是数字');this.value='';}"
+></p>
+
+<p>纬度:<input type="text" name="weidu"
+ onchange="if(/\D/.test(this.value)){alert('纬度必须是数字');this.value='';}"></p>
+
+
+<p>
+    货运类型：<select  name="Freight_type">
+<option value="weixianping">危险品</option>
+<option value="huaxueping">化学品</option>
+<option value="yeti">液体</option>
+</select>
+</p>
+
+<p>
+    船舶状态：<select  name="ship_status">
+<option value="runing">航行中</option>
+<option value="parking">停靠中</option>
+<option value="repairing">维修中</option>
+</select>
+</p>
+
+<p>
+    任务状态：<select  name="task_status">
+<option value="processing">进行中</option>
+<option value="done">任务完成</option>
+<option value="failed">任务失败</option>
+</select>
+</p>
+
+<!--
+<input name="submit" type="submit" value="添加" />
+-->
+<button type="submit" id="submit"  class="btn btn-danger">添加</button>
+
+</form>
+<h3>{{ prompt_message }}</h3>
+<h3>{{ errortype }}</h3>
+
+
+<script src="http://how2j.cn/study/js/bootstrap/3.3.6/bootstrap.min.js"></script>
+
+
+    <script>
+        $(document).ready(function(){
+            $.ajaxSetup({
+                 data: {csrfmiddlewaretoken: '{{ csrf_token }}' },
+            });
+        $('#formadd').submit(function(){
+                var name = $("#id_name").val();                 //获得form中用户输入的name 注意这里的id_name 与你html中的id一致
+                var password = $("#id_password").val();    //同上
+
+                $.ajax({
+                    type:"POST",
+                    data: {name:name, password:password},
+                    url: "{% url 'input_shipinfo' %}", //后台处理函数的url 这里用的是static url 需要与urls.py中的name一致
+                    cache: false,
+                    dataType: "html",
+                    success: function(result, statues, xml){
+                        alert(result);                                         //成功时弹出view传回来的结果
+                    },
+                    error: function(){
+                        alert("false");
+                    }
+                });
+                return false;
+            });
+
+        });
+    </script>
+
+<!--
+<script>
+    function shows(a) {
+        $('.buttonText').text(a)
+    }
+    var a = document.getElementsByTagName('a')[0]
+    a.onclick= function(){
+        console.log('1111')
+    }
+    console.log(a.innerHTML)
+    aa = a.innerHTML
+
+    console.log(typeof aa)
+</script>
+-->
+
+{% endblock %}

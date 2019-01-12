@@ -1,0 +1,24 @@
+{% load static %}
+
+    <div class="register-container container">
+            <div class="row">
+                <div class="iphone span5">
+                    <!--
+                    <img src="assets/img/iphone.png" alt="">
+                    -->
+                    <img class="img-responsive" src="{% static 'assets/img/iphone.png' %}" alt="">
+                </div>
+                <div class="register span6">
+                    <form action="" method="post">
+                        {% csrf_token %}
+                        <h2>登录到 <span class="red"><strong>xx航船公司</strong></span></h2>
+                        <label for="userid">用户名</label>
+                        <input type="text" id="userid" name="username" placeholder="输入你的用户名">
+                        <label for="passwordid">密码</label>
+                        <input type="password" id="passwordid" name="password1" placeholder="输入你密码">
+
+                        <button type="submit"><a href="{% url 'login' %}">登录</a></button>
+                    </form>
+                </div>
+            </div>
+        </div>

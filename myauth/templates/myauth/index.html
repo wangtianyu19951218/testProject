@@ -1,0 +1,81 @@
+{% load static %}
+<script type="text/javascript" src="{% static 'assets/js/jquery.min.js' %}"></script>
+<link rel="stylesheet" href="{% static 'assets/bootstrap/css/bootstrap.min.css' %}" type="text/css" media="all">
+<script type="text/javascript" src="{% static 'assets/bootstrap/js/bootstrap.min.js' %}"></script>
+
+<link rel="stylesheet" href="{% static 'assets/css/style.css' %}" type="text/css" media="all">
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+        <title>XX船舶公司后台管理系统</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="">
+        <meta name="author" content="">
+    <style>
+        a{
+            text-decoration: none;
+            color: #ffffff;
+        }
+        a:hover{
+         color: #ffffff;
+        }
+ </style>
+</head>
+<body>
+
+<!-- 页面共用的头 -->
+<div class="header">
+            <div class="container">
+                <div class="row">
+                    <div class="logo span4">
+                        <h1><a href="{% url 'login' %}">xx航船公司 </a></h1>
+                    </div>
+
+                   <!-- <div class="links span8">
+                        <a class="home" href="/search/" rel="tooltip" data-placement="bottom" data-toggle="tishi" title="查询位置"></a>
+                        <a class="blog" href="{% url 'login' %}" rel="tooltip" data-placement="bottom" data-toggle="tishi" title="登录"></a>
+
+                    </div> -->
+                </div>
+            </div>
+    </div>
+
+<!-- 页面共用的背景 -->
+    <div class="register-container container">
+
+            <div class="row">
+                <div class="iphone span5">
+                    <!--
+                    <img src="assets/img/iphone.png" alt="">
+                    -->
+                    <img class="img-responsive" src="{% static 'assets/img/iphone.png' %}" alt="">
+                </div>
+
+
+
+                <div>
+                <!-- 不同的页面根据URL只改以下内容 -->
+                    {% block content %}
+
+                    <!-- 这里是挖出来的空 -->
+
+
+	                {% endblock %}
+                </div>
+
+            </div>
+        </div>
+
+
+
+
+        <!--<div style="margin-right: 0px;margin-top: 0px">{% include 'myauth/advertisement.html' %}</div>-->
+
+    <p style="background-color: #00aced">版权归属：wty,联系电话：12345</a></p>
+
+</body>
+
+
+</html>

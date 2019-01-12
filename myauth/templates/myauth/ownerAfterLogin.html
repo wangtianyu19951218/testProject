@@ -1,0 +1,12 @@
+{% extends 'myauth/index.html' %}
+
+{% block content %}
+
+
+    <!--<h1>这是船主登录后看到的界面</h1>-->
+    <h1>欢迎您，船主</h1>
+        <button type="submit" class="btn btn-danger"><a href="/search/" target="_blank">信息查询</a></button>
+        <button type="submit" class="btn btn-danger"><a href="/showall/" target="_blank">所有船舶位置</a></button>
+        <button type="submit" class="btn btn-danger"><a href="/logout/" target="_blank">退出</a></button>
+
+{% endblock %}

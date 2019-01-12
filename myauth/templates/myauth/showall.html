@@ -1,0 +1,249 @@
+{#{% extends 'myauth/index.html' %}#}
+{##}
+{#{% block content %}#}
+{##}
+{##}
+{##}
+{#{% endblock %}#}
+{% load static %}
+<link rel="stylesheet" href="{% static 'assets/bootstrap/css/bootstrap.min.css' %}" type="text/css" media="all">
+<link rel="stylesheet" href="{% static 'assets/css/style.css' %}" type="text/css" media="all">
+<script type="text/javascript" src="{% static 'assets/js/jquery.min.js' %}"></script>
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <!-- 原始地址：//webapi.amap.com/ui/1.0/ui/overlay/SimpleMarker/examples/custom-icon.html -->
+        <base href="//webapi.amap.com/ui/1.0/ui/overlay/SimpleMarker/examples/" />
+        <meta charset="utf-8">
+        <meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width">
+        <title>所有船舶位置</title>
+        <style>
+        html,
+        body,
+        #container {
+            width: 100%;
+            height: 100%;
+            margin: 0px;
+        }
+
+        #myIcon {
+            background: orange;
+            width: 20px;
+            height: 60px;
+            border-radius: 10px;
+        }
+        </style>
+    </head>
+
+    <body>
+    <div class="header">
+            <div class="container">
+                <div class="row">
+                    <div class="logo span4">
+                        <h1><a href="/">xx航船公司 </a></h1>
+                    </div>
+
+                    <div class="links span8">
+                        <a class="home" href="/search/" rel="tooltip" data-placement="bottom" data-toggle="tishi" title="查询位置"></a>
+                        <a class="blog" href="{% url 'login' %}" rel="tooltip" data-placement="bottom" data-toggle="tishi" title="登录"></a>
+
+                    </div>
+                </div>
+            </div>
+    </div>
+    {% if user.is_authenticated %}
+        <h1>{{ userright_search }}</h1>
+        <div id="container" style="width: 1300px;height: 600px;margin-right: 0px"></div>
+        <div style="display:none">
+            <div id="myIcon"></div>
+        </div>
+
+    {% endif %}
+        <script type="text/javascript" src='//webapi.amap.com/maps?v=1.4.11&key=您申请的key值'></script>
+        <!-- UI组件库 1.0 -->
+        <script src="//webapi.amap.com/ui/1.0/main.js?v=1.0.11"></script>
+        <script type="text/javascript">
+        //接收view中ajax传回的数据
+        var zuobiao_list = {{ zuobiao_list|safe }}
+        console.log(zuobiao_list)
+
+        //创建地图
+        var map = new AMap.Map('container', {
+            center: [192.1272610566406,12.590011951875665],
+            zoom: 3
+        });
+
+
+        AMapUI.loadUI(['overlay/SimpleMarker'], function(SimpleMarker) {
+
+            var lngLats = zuobiao_list
+            var dic = {
+                iconLabel: '',
+                //自定义图标地址
+                iconStyle: '//webapi.amap.com/theme/v1.3/markers/b/mark_r.png',
+
+                //设置基点偏移
+                offset: new AMap.Pixel(-19, -60),
+
+                map: map,
+
+                showPositionPoint: true,
+                position: lngLats[0],
+                zIndex: 100,
+
+            }
+            for (i=0;i<lngLats.length;i++){
+                dic.position= lngLats[i]
+                new SimpleMarker(dic);
+            }
+
+
+        });
+
+        /*改变标记点样式的方法
+
+        var a =  new SimpleMarker(dic);
+           console.log(a)
+           var b =  new SimpleMarker({
+                iconLabel: '',
+                //自定义图标节点(img)的属性
+                iconStyle: '//webapi.amap.com/theme/v1.3/markers/b/mark_r.png',
+
+                iconStyle: {
+
+                    src: '//webapi.amap.com/theme/v1.3/markers/b/mark_b.png',
+                    style: {
+                        width: '20px',
+                        height: '30px'
+                    }
+                },
+
+
+                //设置基点偏移
+                offset: new AMap.Pixel(-10, -30),
+
+                map: map,
+                showPositionPoint: true,
+                position: lngLats[1],
+                zIndex: 200
+            });
+
+            new SimpleMarker({
+                iconLabel: '',
+                //自定义图标节点(img)的属性
+                iconStyle: '//webapi.amap.com/theme/v1.3/markers/b/mark_r.png',
+
+
+                //设置基点偏移
+                offset: new AMap.Pixel(-10, -60),
+
+                map: map,
+                showPositionPoint: true,
+                position: lngLats[2]
+            });
+
+            new SimpleMarker({
+                iconLabel: '',
+                //直接设置html(需要以"<"开头并且以">"结尾)
+                //iconStyle: '<div style="background:red;width:20px;height:60px;"></div>',
+                iconStyle: '//webapi.amap.com/theme/v1.3/markers/b/mark_r.png',
+
+                //设置基点偏移
+                offset: new AMap.Pixel(-10, -60),
+
+                map: map,
+                showPositionPoint: true,
+                position: lngLats[3]
+            });
+
+            new SimpleMarker({
+                iconLabel: '',
+                //直接使用dom节点
+                //iconStyle: document.getElementById('myIcon'),
+                iconStyle: '//webapi.amap.com/theme/v1.3/markers/b/mark_r.png',
+
+                //设置基点偏移
+                offset: new AMap.Pixel(-10, -60),
+
+                map: map,
+                showPositionPoint: true,
+                position: lngLats[4]
+            });
+            new SimpleMarker({
+                iconLabel: '',
+                //直接设置html(需要以"<"开头并且以">"结尾)
+                //iconStyle: '<div style="background:red;width:20px;height:60px;"></div>',
+                iconStyle: '//webapi.amap.com/theme/v1.3/markers/b/mark_r.png',
+
+                //设置基点偏移
+                offset: new AMap.Pixel(-10, -60),
+
+                map: map,
+                showPositionPoint: true,
+                position: lngLats[5]
+            });
+            new SimpleMarker({
+                iconLabel: '',
+                //直接设置html(需要以"<"开头并且以">"结尾)
+                //iconStyle: '<div style="background:red;width:20px;height:60px;"></div>',
+                iconStyle: '//webapi.amap.com/theme/v1.3/markers/b/mark_r.png',
+
+                //设置基点偏移
+                offset: new AMap.Pixel(-10, -60),
+
+                map: map,
+                showPositionPoint: true,
+                position: lngLats[6]
+            });
+
+
+        */
+        /**
+         * 返回一批网格排列的经纬度
+
+         * @param  {AMap.LngLat} center 网格中心
+         * @param  {number} colNum 列数
+         * @param  {number} size  总数
+         * @param  {number} cellX  横向间距
+         * @param  {number} cellY  竖向间距
+         * @return {Array}  返回经纬度数组
+         */
+        /*function getGridLngLats(center, colNum, size, cellX, cellY) {
+
+            var pxCenter = map.lnglatToPixel(center);
+
+            var rowNum = Math.ceil(size / colNum);
+
+            var startX = pxCenter.getX(),
+                startY = pxCenter.getY();
+
+            cellX = cellX || 70;
+
+            cellY = cellY || 70;
+
+
+            var lngLats = [];
+
+            for (var r = 0; r < rowNum; r++) {
+
+                for (var c = 0; c < colNum; c++) {
+
+                    var x = startX + (c - (colNum - 1) / 2) * (cellX);
+
+                    var y = startY + (r - (rowNum - 1) / 2) * (cellY);
+
+                    lngLats.push(map.pixelToLngLat(new AMap.Pixel(x, y)));
+
+                    if (lngLats.length >= size) {
+                        break;
+                    }
+                }
+            }
+            return lngLats;
+        }
+      */
+
+
+    </script>
+    </body>
+    </html>

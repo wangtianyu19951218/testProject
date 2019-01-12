@@ -1,0 +1,86 @@
+{% extends 'myauth/index.html' %}
+
+{% block content %}
+    <!-- 以下是直接使用Django自带的表单
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <h1>这是注册界面</h1>
+
+    判断创建的表单是否有误，如果有误，在注册界面输出错误信息
+        {% if registerViews.errors %}
+            <h1>{{ registerViews.errors }}</h1>
+        {% endif %}
+
+    <form action="" method="post">
+        Django的表单要加下面这句，防止跨站攻击
+        {% csrf_token %}
+
+        Django自带注册表单可以直接用
+            {{ registerViews.as_p }}
+        <button type="submit">注册</button>
+
+    </form>
+</body>
+</html> -->
+
+
+
+<!-- 以下是将Django自带的表单运行出来，复制到自己的html中 -->
+    <body>
+    <h1>这是注册界面</h1>
+
+    <!-- 判断创建的表单是否有误，如果有误，在注册界面输出错误信息 -->
+        {% if registerViews.errors %}
+            <h1>{{ registerViews.errors }}</h1>
+        {% endif %}
+
+    <!-- 判断创建的表单是否有误，如果有误，在注册界面输出错误信息 -->
+
+
+    <form action="" method="post">
+        <!-- Django的表单要加下面这句，防止跨站攻击 -->
+
+        <input type="hidden" name="csrfmiddlewaretoken" value="Uu4DLeYawxifLKUy0CwxyIpg6vKD94JxtcEtXBA9XHhh3vrLEAMmSnFIuQjBGKKa">
+
+        <!-- Django自带注册表单可以直接用 -->
+            <p>
+                <label for="id_username">用户名:</label>
+                <input type="text" name="username" maxlength="150" autofocus required id="id_username">
+                <span class="helptext">必填。150个字符或者更少。包含字母，数字和仅有的@/./+/-/_符号。</span>
+            </p>
+
+            <p>
+                <label for="id_email">邮箱地址:</label>
+                <input type="text" name="email_address" maxlength="150" autofocus required id="id_email">
+                <span class="helptext">必填,邮箱结尾必须是@xx.com。</span>
+            </p>
+
+            <p>
+                <label for="id_password1">密码:</label>
+                <input type="password" name="password1" required id="id_password1">
+                <span class="helptext">
+                    <ul>
+                        <li>你的密码不能与其他个人信息太相似。</li>
+                        <li>你的密码必须包含至少 8 个字符。</li>
+                        <li>你的密码不能是大家都爱用的常见密码。</li>
+                        <li>你的密码不能全部为数字。</li></ul></span>
+            </p>
+            <p>
+                <label for="id_password2">密码确认:</label>
+                <input type="password" name="password2" required id="id_password2">
+                <span class="helptext">为了校验，请输入与上面相同的密码。</span>
+            </p>
+        <button type="submit">注册</button>
+        {% csrf_token %}
+    </form>
+</body>
+
+
+
+
+{% endblock %}
